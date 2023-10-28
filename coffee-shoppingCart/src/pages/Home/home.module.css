@@ -1,0 +1,83 @@
+.section-information {
+    display: flex;
+    justify-content: space-around;
+    padding-top: 7rem;
+}
+
+
+
+.title-information {
+    color: #272221;
+    /* Title/Title XL */
+    font-family: Baloo 2;
+    font-size: 48px;
+    font-style: normal;
+    font-weight: 800;
+    line-height: 130%; /* 62.4px */
+    
+}
+
+@media only screen and (max-width: 1400px) {
+    .title-information {
+        color: #272221;
+        /* Title/Title XL */
+        font-family: Baloo 2;
+        font-weight: bold;
+        font-size: 2rem;
+    }
+    
+}
+
+
+.coffe-logo { 
+    width: 476px;
+    height: 360px;
+    flex-shrink: 0;   
+}
+
+.header-content-section h1, p {
+    margin-left: 8px;
+}
+
+.section-svg {
+    display: flex;
+    align-items: center;
+    margin-top: 6rem;
+    width: 567px;
+    height: 84px;
+    flex-shrink: 0;
+}
+
+
+.svg-style-information {
+    display: flex;
+    padding: 8px;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50px;
+    gap: 8px;
+}
+
+.description {
+    font-family: Roboto;
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 130%; /* 26px */
+}
+
+.container-text-svg {
+    display: flex;
+    width: 294px;
+    align-items: center;
+    gap: 12px;
+}
+
+.text-svg {
+    font-family: Roboto;
+
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 130%; /* 20.8px */
+}
