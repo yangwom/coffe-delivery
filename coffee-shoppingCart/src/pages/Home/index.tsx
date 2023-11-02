@@ -6,6 +6,8 @@ import embalagem from '../../assets/box.svg'
 import coffeSvg from '../../assets/coffeLogo.svg'
 import CoffeList from "../../components/CoffeList/CoffeList"
 
+
+
 function Home() {
 return (
       <>

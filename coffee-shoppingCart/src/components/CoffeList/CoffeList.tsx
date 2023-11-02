@@ -1,7 +1,7 @@
-import { imagens } from './Services'
 import maisImg from '../../assets/+.svg'
 import menosImg from '../../assets/-.svg'
 import buttonCart from '../../assets/ShoppingCartSimple.svg'
+import { imagens } from './Services'
 import S from '../CoffeList/CoffeList.module.css'
 import { useEffect, useState, useCallback } from 'react'
 import { getAllProducts } from '../../services'
@@ -86,20 +86,22 @@ const CoffeList = () => {
 
   }
 
-  const handleAddCart = (productId: number) => {
-    const productSelected = productsExist.find(prod => prod.id === productId) as product
-    const productExistInCart = cart.some(prod => prod.id === productId)
-    if (productExistInCart === false) {
+  const handleAddCart = (product: product) => {
+   const productExistCart = cart.some((productExist) => product.id === productExist.id)
 
-      setCart(state => [...state, productSelected])
-    }
 
-    toast.error("Esse produto já existe no carrinho")
+   if(productExistCart) {
+    toast("ver produto no carrinho")
+   return setCart(cart.map(item => 
+    item.id === product.id ? { ...item, quantity: product.quantity } : item
+  ));
+   }
+   toast("Produto adcionado no carrinho com sucesso")
+  return setCart([...cart, product])
+   
   }
 
-
-
-
+  localStorage.setItem("add-cart", JSON.stringify(cart))
 
   return (
     <div className={S["container-coffe"]}>
@@ -122,7 +124,7 @@ const CoffeList = () => {
                 <button onClick={() => handleRemoveQuantity(product.id)} className={S["button-quantity"]}><img src={menosImg} alt="" /></button>
               </div>
 
-              <button onClick={() => handleAddCart(product.id)} className={S["button-add-cart"]}>
+              <button onClick={() => handleAddCart(product)} className={S["button-add-cart"]}>
                 <img src={buttonCart} alt="" />
               </button>
             </div>
