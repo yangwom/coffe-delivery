@@ -1,17 +1,16 @@
-.container-coffe {
+.containerCoffe {
   display: flex;
   width: 1440px;
   height: 1645px;
-  padding: 32px 160px 157px 160px;
+  padding: 32px 50px 157px 50px;
   flex-direction: column;
   align-items: flex-start;
   gap: 54px;
   flex-shrink: 0;
 }
 
-.container-list {
+.containerList {
   width: 1120px;
-
   flex-shrink: 0;
   display: flex;
   gap: 2rem;
@@ -19,7 +18,7 @@
   justify-content: center;
 }
 
-.card-coffe {
+.cardCoffe {
   display: flex;
   flex-direction: column;
   border-top-right-radius: 50px;
@@ -31,44 +30,86 @@
   background-color: #F3F2F2;
 }
 
-.card-coffe img {
+.cardCoffe img {
   margin-top: -2rem;
-
 }
 
-.button-quantity {
+.cardCoffe h3, p {
+  margin: 0;
+}
+
+.buttonQuantity {
   background-color: #E6E5E5;
   border: none;
 }
 
-.cart-add-quantity {
+.cartAddQuantity {
   display: flex;
   width: 208px;
   justify-content: space-between;
   align-items: center;
+  margin-top: 2rem;
 }
 
+.containerPrice {
+  display: flex;
+  gap: 4px;
+}
 
-.button-add-cart {
+.containerPrice p {
+  margin-top: 5px;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 130%; /* 18.2px */
+}
+
+.containerPrice strong {
+  font-family: Baloo 2;
+  font-size: 22px;
+}
+
+.buttonAddCart {
   background-color: #4B2995;
   border-radius: 5px;
   padding: 8px;
   border: none;
 }
 
-.button-add-cart img {
+.buttonAddCart img {
   margin: auto;
 }
 
-.container-quantity {
+.containerQuantity {
   display: flex;
+  padding: 0;
+  margin-left: 8px;
   height: 38px;
-  padding: 8px;
+  max-width: 75px;
+  padding: 4px;
   justify-content: center;
   align-items: center;
   gap: 4px;
   background-color: #E6E5E5;
+  border-radius: 10px;
 }
-.progress {
-  background-color: red
+
+.cardDescriptionAndName {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+}
+
+
+.categoryStyle {
+  display: flex;
+  padding: 4px 8px;
+  margin-top: 12px;
+  margin-bottom: 14px;
+  justify-content: center;
+  align-items: center;
+  border-radius: 100px;
+  background-color: #F1E9C9;
+  color: #C47F17;
 }

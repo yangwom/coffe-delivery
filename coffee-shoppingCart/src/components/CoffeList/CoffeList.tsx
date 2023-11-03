@@ -1,138 +1,49 @@
 import maisImg from '../../assets/+.svg'
 import menosImg from '../../assets/-.svg'
 import buttonCart from '../../assets/ShoppingCartSimple.svg'
-import { imagens } from './Services'
 import S from '../CoffeList/CoffeList.module.css'
-import { useEffect, useState, useCallback } from 'react'
-import { getAllProducts } from '../../services'
-import { product } from '../../types'
-import { ToastContainer, toast } from 'react-toastify';
+import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-
-const DEFAULT_QUANTITY = 1
-const DEFAULT_MAX_QUANTITY = 10
-const INITIAL_PRODUCT = {
-  id: 0,
-  created_at: '',
-  product_name: '',
-  categoria: '',
-  quantity: 0,
-  description: '',
-  product_price: 0,
-  image: '',
-  image_default: undefined
-}
+import { useCartContext } from '../../context/CartShoppingProvider'
 
 const CoffeList = () => {
-  const [products, setProducts] = useState<product[]>([INITIAL_PRODUCT])
-  const [cart, setCart] = useState<product[]>([])
+	const { productsExist, handleAddQuantity, handleRemoveQuantity, handleAddCart } = useCartContext()
 
-  const newImagens = imagens.map((img, index) => {
-    return {
-      id: index + 1,
-      img
-    }
-  })
+	return (
+		<div className={S.containerCoffe}>
+			<ToastContainer toastStyle={{ color: "black" }} />
+			<h1>Nossos Cafés</h1>
 
-  const handleAllProducts = useCallback(async () => {
-    const dataProducts = await getAllProducts()
-    if (dataProducts) {
-      const productsImgAndQnty = dataProducts.map(prod => {
-        return {
-          ...prod,
-          quantity: DEFAULT_QUANTITY,
-          image_default: newImagens.find(img => prod.id === img.id)
-        }
-      })
-      setProducts(productsImgAndQnty)
-    }
-  }, [])
+			<section className={S.containerList}>
+				{productsExist?.map((product) => (
+					product?.id &&
+					<div key={product.id} className={S.cardCoffe}>
+						<img src={product.image_default?.img} alt="" />
+						<div className={S.cardDescriptionAndName}>
+							<strong className={S.categoryStyle}>{product.categoria}</strong>
+							<h3>{product.product_name}</h3>
+							<p>{product.description}</p>
+						</div>
+						<div className={S.cartAddQuantity}>
+							<div className={S.containerPrice}>
+								<p>R$</p>
+								<strong>{`${(Math.round((product.product_price * product.quantity) * 100) / 100).toFixed(2)}`}</strong>
+							</div>
+							<div className={S.containerQuantity}>
+								<button onClick={() => handleAddQuantity(product.id)} className={S.buttonQuantity}><img id={`${product.id}`} src={maisImg} alt="" /></button>
+								<strong>{product.quantity}</strong>
+								<button onClick={() => handleRemoveQuantity(product.id)} className={S.buttonQuantity}><img src={menosImg} alt="" /></button>
+							</div>
 
-  useEffect(() => {
-    handleAllProducts()
-  }, [])
-
-  const getProductLocalStorage = localStorage.getItem("quantityUpdate")
-  const productsStorage = getProductLocalStorage ? JSON.parse(getProductLocalStorage) as product[] : [INITIAL_PRODUCT]
-  const productsExist = getProductLocalStorage === null ? products : productsStorage;
-
-  const handleAddQuantity = (productId: number) => {
-    const productsWithIncrement = productsExist.map(prod => {
-      if (prod.id === productId && prod.quantity < DEFAULT_MAX_QUANTITY) {
-        return {
-          ...prod,
-          quantity: prod.quantity + 1
-        }
-      }
-      return prod
-    })
-
-    localStorage.setItem('quantityUpdate', JSON.stringify(productsWithIncrement));
-    setProducts(productsWithIncrement)
-  }
-
-  const handleRemoveQuantity = (productId: number) => {
-    const productsWithDecrement = productsExist.map(prod => {
-      if (prod.id === productId && prod.quantity > 1) {
-        return {
-          ...prod,
-          quantity: prod.quantity - 1
-        }
-      }
-      return prod
-    })
-    localStorage.setItem('quantityUpdate', JSON.stringify(productsWithDecrement));
-    setProducts(productsWithDecrement)
-
-  }
-
-  const handleAddCart = (product: product) => {
-   const productExistCart = cart.some((productExist) => product.id === productExist.id)
-
-
-   if(productExistCart) {
-    toast("ver produto no carrinho")
-   return setCart(cart.map(item => 
-    item.id === product.id ? { ...item, quantity: product.quantity } : item
-  ));
-   }
-   toast("Produto adcionado no carrinho com sucesso")
-  return setCart([...cart, product])
-   
-  }
-
-  localStorage.setItem("add-cart", JSON.stringify(cart))
-
-  return (
-    <div className={S["container-coffe"]}>
-      <ToastContainer toastStyle={{ color: "black" }}/>
-      <h1>Nossos Cafés</h1>
-
-      <section className={S["container-list"]}>
-        {productsExist?.map((product) => (
-          product?.id &&
-          <div key={product.id} className={S["card-coffe"]}>
-            <img src={product.image_default?.img} alt="" />
-            <span>{product.categoria}</span>
-            <h3>{product.product_name}</h3>
-            <p>{product.description}</p>
-            <div className={S["cart-add-quantity"]}>
-              <p>R$ <strong>{`${(Math.round((product.product_price * product.quantity) * 100) / 100).toFixed(2)}`}</strong></p>
-              <div className={S["container-quantity"]}>
-                <button onClick={() => handleAddQuantity(product.id)} className={S["button-quantity"]}><img id={`${product.id}`} src={maisImg} alt="" /></button>
-                <strong>{product.quantity}</strong>
-                <button onClick={() => handleRemoveQuantity(product.id)} className={S["button-quantity"]}><img src={menosImg} alt="" /></button>
-              </div>
-
-              <button onClick={() => handleAddCart(product)} className={S["button-add-cart"]}>
-                <img src={buttonCart} alt="" />
-              </button>
-            </div>
-          </div>
-        ))}
-      </section>
-    </div>
-  )
+							<button onClick={() => handleAddCart(product)} className={S.buttonAddCart}>
+								<img src={buttonCart} alt="" />
+							</button>
+						</div>
+					</div>
+				))}
+			</section>
+		</div>
+	)
 }
 
 export default CoffeList;

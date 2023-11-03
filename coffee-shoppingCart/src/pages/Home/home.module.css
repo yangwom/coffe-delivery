@@ -73,6 +73,13 @@
     gap: 12px;
 }
 
+.container-description {
+    display: flex;
+    flex-direction: column;
+    padding: 10px;
+    gap: 2rem;
+}
+
 .text-svg {
     font-family: Roboto;
 

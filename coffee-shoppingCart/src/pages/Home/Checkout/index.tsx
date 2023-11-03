@@ -1,17 +1,17 @@
-import { useState } from "react"
-import { product } from "../../../types"
+import { useCartContext } from "../../../context/CartShoppingProvider"
 
-const productStorage = localStorage.getItem("add-cart")
-const productList = productStorage ? JSON.parse(productStorage) as product[] : []
+
+
+
 
 function Checkout() {
-const [cartList, setCartList] = useState<product[]>([])
-    const total = productList.reduce((total, product) => total + product.product_price * product.quantity, 0)
-    setCartList(productList)
+    const { cart } = useCartContext()
+
+    const total = cart.reduce((total, product) => total + product.product_price * product.quantity, 0)
     console.log(total)
     return (
-        <section>
-            {cartList.map(productCart => (
+        <section style={{display: "flex"}}>
+            {cart.map(productCart => (
                 <div key={productCart.id}>
                     <img src={productCart.image_default?.img} alt="" />
                     <p>{productCart.product_name}</p>

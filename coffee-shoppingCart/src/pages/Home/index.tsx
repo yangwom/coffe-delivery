@@ -20,7 +20,7 @@ return (
                 </p>
             </div>
            <section className={S["section-svg"]}>
-               <div style={{padding: '10px'}}>
+               <div className={S["container-description"]}>
               <div className={S["container-text-svg"]} >
                  <img className={S["svg-style-information"]} style={{ backgroundColor: '#C47F17'}} src={cart}  />
                  <p className={S["text-svg"]}>Compra simples e segura</p>
@@ -31,7 +31,7 @@ return (
                  <p className={S["text-svg"]}>Entrega rápida e rastreada</p>
                </div>
              </div>
-             <div >
+             <div className={S["container-description"]}  >
                <div className={S["container-text-svg"]} >
                <img className={S["svg-style-information"]} style={{ backgroundColor: '#574F4D'}}src={embalagem} />
                <p className={S["text-svg"]}>Embalagem mantém o café intacto</p>
